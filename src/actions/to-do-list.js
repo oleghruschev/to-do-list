@@ -16,9 +16,9 @@ export const setCreateToDo = (payload) => ({
 //   type: actionTypes.ARTICLE_DELETE,
 //   id,
 // })
-  
 
-export const createToDo = (title, description, priority) => (dispatch, getState) => {
+
+export const createToDo = (title, description, priority, date) => (dispatch, getState) => {
   console.log(title, description)
   const list = getState().toDoList.list;
   const id = list.length
@@ -26,9 +26,11 @@ export const createToDo = (title, description, priority) => (dispatch, getState)
     : 1
   const newToDo = {
     id,
+    date,
     title,
-    description,
     priority,
+    description,
+    completed: false,
   }
   console.log(newToDo)
 

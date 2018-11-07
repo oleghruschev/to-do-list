@@ -11,17 +11,19 @@ import Button from 'components/button';
 import Select from 'components/select';
 import Textarea from 'components/textarea';
 
+import styles from './styles.scss';
 
 class CreateToDo extends Component {
 
   static propTypes = {
     createToDo: PropTypes.func.isRequired,
   }
-  
+
   state = {
+    date: '',
     title: '',
-    description: '',
     priority: 0,
+    description: '',
   }
 
   handleChange = (e) => {
@@ -33,19 +35,23 @@ class CreateToDo extends Component {
   }
 
   handleChangePriority = (e) => {
-    this.setState({ priority: e.target.value })
+    this.setState({ priority: +e.target.value })
+  }
+
+  handleChangeDate = (e) => {
+    this.setState({ date: e.target.value })
   }
 
   handleCreateToDo = () => {
     const { createToDo } = this.props;
-    const { title, description, priority } = this.state;
+    const { title, description, priority, date } = this.state;
 
-    createToDo(title, description, priority);
+    createToDo(title, description, priority, date);
   }
 
   render() {
-    const { title, description } = this.state;
-    
+    const { title, description, date } = this.state;
+
     const priority = [
       { value: USUAL, title: 'Обычная'},
       { value: IMPORTANT, title: 'Важная'},
@@ -53,17 +59,23 @@ class CreateToDo extends Component {
     ]
 
     return (
-      <Fragment>
+      <div className={styles.wrapper}>
         <h2>Создание задачи</h2>
-        <p>Название</p>
-        <Input value={title} onChange={this.handleChange} />
-        <p>Описание</p>
-        <Textarea value={description} onChange={this.handleChangeDescription}/>
+        <div>
+          <span>Название</span>
+          <Input value={title} onChange={this.handleChange} />
+        </div>
+        <div>
+          <span>Описание</span>
+          <Textarea value={description} onChange={this.handleChangeDescription}/>
+        </div>
         <p>Дата</p>
-        <Input type='date' />
+        <Input type='date' value={date} onChange={this.handleChangeDate}/>
         <Select options={priority} onChange={this.handleChangePriority} />
-        <Button title='Создать задачу' onClick={this.handleCreateToDo} />
-      </Fragment>  
+        <div>
+          <Button title='Создать задачу' onClick={this.handleCreateToDo} />
+        </div>
+      </div>
     )
   }
 }

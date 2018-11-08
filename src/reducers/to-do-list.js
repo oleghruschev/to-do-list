@@ -1,27 +1,27 @@
-import Immutable from 'immutable';
-
 import * as actionTypes from 'constants/actionTypes';
-import { immutableize } from 'helpers/immutableize';
 
-export const initialState = Immutable.fromJS({
-  list: [],
-  // openArticle: 0,
-});
+export const initialState = [];
 
 const toDoList = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ARTICLE_SET_CREATE:
-      return state.update('list', list => list.push(action.payload));
-    
-    // case actionTypes.ARTICLE_SET_OPEN:
-    //   return state.set('openArticle', action.id)  
+    case actionTypes.ADD_TO_DO:
+      return [
+        ...state,
+        action.newToDo,
+      ];
 
-    // case actionTypes.ARTICLE_DELETE:
-    //   return state.set('list', state.get('list').filter(article => article.get('id') !== action.id));
-      
+    case actionTypes.TOGGLE_TO_DO:
+      return state.map(toDo =>
+        (toDo.id === action.id)
+          ? {...toDo, completed: !toDo.completed}
+          : toDo
+      );
+
+    case actionTypes.DELETE_TODO:
+        return state.filter(todo => todo.id !== action.id);
 
     default: return state;
   }
 }
 
-export default immutableize(toDoList);
+export default toDoList;

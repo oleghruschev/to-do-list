@@ -32,7 +32,7 @@ class ToDoList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  toDoList: state.toDoList.list,
+  toDoList: state.toDoList,
 })
 
 const mapDispatchToProps = {

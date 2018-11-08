@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import { toggleCompleted } from 'actions/to-do-list';
+import { toggleToDo, deleteTodo } from 'actions/to-do-list';
 
 import Input from 'components/input';
+import Textarea from 'components/textarea';
 
 import styles from './styles.scss';
 
@@ -18,16 +19,54 @@ class ToDo extends Component {
     id: PropTypes.number.isRequired,
     date: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    complited: PropTypes.bool.isRequired,
     priority: PropTypes.number.isRequired,
 
-    toggleCompleted: PropTypes.func.isRequired,
+    toggleToDo: PropTypes.func.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
+  }
+
+  state = {
+    edit: false,
+    editTitle: '',
+    editDescription: '',
   }
 
   handleChangeComplite = () => {
-    const { id, completed, toggleCompleted } = this.props;
+    const { id, toggleToDo } = this.props;
 
-    toggleCompleted(id, !completed)
+    toggleToDo(id)
+  }
+
+  handleEditTodo = () => {
+    const { title, description } = this.props;
+
+    this.setState({
+      edit: true,
+      editTitle: title,
+      editDescription: description,
+    });
+  }
+
+  handleDeleteTodo = () => {
+    const { id, deleteTodo } = this.props;
+
+    deleteTodo(id)
+  }
+
+  handleSaveTodo = () => {
+    this.setState({ edit: false })
+  }
+
+  handleExitFromTodo = () => {
+    this.setState({ edit: false });
+  }
+
+  handleChangeTitle = (e) => {
+    this.setState({ editTitle: e.targetValue });
+  }
+
+  handleChangeDescription = (e) => {
+    this.setState({ editDescription: e.target.value });
   }
 
   renderPriority() {
@@ -39,9 +78,20 @@ class ToDo extends Component {
   }
 
   render() {
+    const { editTitle, editDescription, edit } = this.state;
     const { title, description, date } = this.props;
-    
-    return (
+
+    if (edit) return (
+      <div className={styles.wrapper}>
+        <p>Название</p>
+        <Input value={editTitle} onChange={this.handleChangeTitle} />
+        <p>Описание</p>
+        <Textarea value={editDescription} onChange={this.handleChangeDescription}/>
+        <p onClick={this.handleSaveTodo}>Сохранить</p>
+        <p onClick={this.handleExitFromTodo}>Выход</p>
+      </div>
+    )
+    else return (
       <div className={styles.wrapper}>
         <Input type='checkbox' onChange={this.handleChangeComplite} />
         <div className={styles.todo}>
@@ -49,6 +99,8 @@ class ToDo extends Component {
           <p>{description}</p>
           <p>Важность задачи: {this.renderPriority()}</p>
           <p>{date}</p>
+          <p onClick={this.handleEditTodo}>ред.</p>
+          <p onClick={this.handleDeleteTodo}>удалить</p>
         </div>
       </div>
     )
@@ -56,7 +108,8 @@ class ToDo extends Component {
 }
 
 const mapDispatchToProps = {
-  toggleCompleted,
+  toggleToDo,
+  deleteTodo,
 }
 
 export default connect(

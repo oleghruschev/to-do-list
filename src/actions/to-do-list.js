@@ -1,6 +1,6 @@
 import * as actionTypes from 'constants/actionTypes';
 
-export const setCreateToDo = (payload) => ({
+const setCreateToDo = (payload) => ({
   type: actionTypes.ARTICLE_SET_CREATE,
   payload,
 });
@@ -19,7 +19,6 @@ export const setCreateToDo = (payload) => ({
 
 
 export const createToDo = (title, description, priority, date) => (dispatch, getState) => {
-  console.log(title, description)
   const list = getState().toDoList.list;
   const id = list.length
     ? list[list.length - 1].id + 1
@@ -32,8 +31,12 @@ export const createToDo = (title, description, priority, date) => (dispatch, get
     description,
     completed: false,
   }
-  console.log(newToDo)
 
   // dispatch(setOpenArticle(id));
   dispatch(setCreateToDo(newToDo));
 };
+
+
+export const toggleCompleted = (id, completed) => (dispatch) => {
+  console.log(id, completed)
+}

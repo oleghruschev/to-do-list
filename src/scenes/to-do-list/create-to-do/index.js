@@ -70,7 +70,7 @@ class CreateToDo extends Component {
           <Textarea value={description} onChange={this.handleChangeDescription}/>
         </div>
         <p>Дата</p>
-        <Input type='date' value={date} onChange={this.handleChangeDate}/>
+        <Input type='datetime-local' value={date} onChange={this.handleChangeDate}/>
         <Select options={priority} onChange={this.handleChangePriority} />
         <div>
           <Button title='Создать задачу' onClick={this.handleCreateToDo} />

@@ -7,7 +7,7 @@ const rootFolder = path.resolve(__dirname);
 
 module.exports = {
 
-  entry: './src/client/index.js',
+  entry: './src/index.js',
 
   output: {
     publicPath: '/',
@@ -20,10 +20,8 @@ module.exports = {
       scenes: path.resolve(rootFolder, 'src/scenes'),
       vars: path.resolve(rootFolder, 'src/scss/_vars'),
       actions: path.resolve(rootFolder, 'src/actions'),
-      helpers: path.resolve(rootFolder, 'src/helpers'),
       reducers: path.resolve(rootFolder, 'src/reducers'),
       constants: path.resolve(rootFolder, 'src/constants'),
-      images: path.resolve(rootFolder, 'src/assets/images'),
       mixins: path.resolve(rootFolder, 'src/styles/_mixins'),
       components: path.resolve(rootFolder, 'src/components'),
     },
@@ -85,7 +83,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebPackPlugin ({
-      title: 'react-redux-app',
+      title: 'todo-list',
       template: path.resolve(rootFolder, './public/index.html')
     }),
     new MiniCssExtractPlugin({

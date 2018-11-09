@@ -1,3 +1,4 @@
-export const USUAL = 0;
-export const IMPORTANT = 1;
-export const VERY_SIGNIFICANT = 2;
+export const ALL = 0;
+export const USUAL = 1;
+export const IMPORTANT = 2;
+export const VERY_SIGNIFICANT = 3;

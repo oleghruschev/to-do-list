@@ -1,5 +1,4 @@
-// export const ARTICLE_DELETE = 'ARTICLE_DELETE';
-// export const ARTICLE_SET_OPEN = 'ARTICLE_SET_OPEN';
-export const ADD_TO_DO = 'ADD_TO_DO';
+export const ADD_TODO = 'ADD_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
-export const TOGGLE_TO_DO = 'TOGGLE_TO_DO';
+export const TOGGLE_TODO = 'TOGGLE_TODO';

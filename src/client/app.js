@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ToDoList from 'scenes/to-do-list';
+import TodoList from 'scenes/todo-list';
 
 
 const App = ({}) => (
-  <ToDoList />
+  <TodoList />
 )
 
 export default App;

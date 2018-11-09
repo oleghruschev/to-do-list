@@ -83,7 +83,7 @@ class Todo extends Component {
     const formatMonth = month < 10 ? `0${month}` : month;
     const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    if (filter !== 0 && filter !== priority) return null;
+    if (filter !== ALL && filter !== priority) return null;
 
     else if (edit) return (
       <CreateTodo

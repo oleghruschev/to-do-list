@@ -8,13 +8,21 @@ import { addTodo } from 'actions/todo-list';
 
 import Select from 'components/select';
 
-import Todo from './todo';
-import CreateTodo from './create-todo';
+import Todo from '../todo';
+import CreateTodo from '../create-todo';
 
 import styles from './styles.scss';
 
+type todo = {
+  id: number,
+  date? : number,
+  title? : string,
+  priority: number,
+  description? : string,
+}
+
 type Props = {
-  todoList: Array,
+  todoList: Array<todo>,
   addTodo: (
     title: number,
     description: string,

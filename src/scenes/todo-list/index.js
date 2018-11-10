@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// @flow
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
@@ -13,14 +13,21 @@ import CreateTodo from './create-todo';
 
 import styles from './styles.scss';
 
+type Props = {
+  todoList: Array,
+  addTodo: (
+    title: number,
+    description: string,
+    priority: number,
+    date: string
+  ) => void
+};
 
-class TodoList extends Component {
+type State = {
+  filter: number
+}
 
-  static propTypes = {
-    todoList: PropTypes.array.isRequired,
-
-    addTodo: PropTypes.func.isRequired,
-  }
+class TodoList extends Component<Props, State> {
 
   state = { filter: ALL }
 

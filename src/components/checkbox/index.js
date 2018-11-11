@@ -1,10 +1,20 @@
+// @flow
 import React from 'react';
 
-const Checkbox = ({ checked, onChange }) => (
+import styles from './styles.scss';
+
+type Props = {
+  checked: bool,
+
+  onChange: Function,
+}
+
+const Checkbox = (props: Props) => (
   <input
     type='checkbox'
-    checked={checked}
-    onChange={onChange}
+    checked={props.checked}
+    onChange={props.onChange}
+    className={styles.checkbox}
   />
 )
 

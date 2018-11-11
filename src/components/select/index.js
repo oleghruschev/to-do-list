@@ -1,10 +1,21 @@
 import React from 'react';
 
+import styles from './styles.scss';
+
 const Select = ({ options, onChange }) => (
-  <select onChange={onChange}>
+  <select
+    className={styles.select}
+    onChange={onChange}
+  >
     {
-      options.map(({ value, title, selected }) => (
-        <option value={value} selected={selected}>{title}</option>
+      options.map(({ value, title, selected }, index) => (
+        <option
+          key={index}
+          value={value}
+          selected={selected}
+        >
+          {title}
+        </option>
       ))
     }
   </select>

@@ -19,13 +19,12 @@ import styles from './styles.scss';
 const cx = classNames.bind(styles);
 
 type Props = {
-  id : number,
-  date? : number,
-  filter: number,
-  complete: bool,
-  title? : string,
-  priority : number,
-  description? : string,
+  id: number,
+  completed: bool,
+  title?: string,
+  priority: number,
+  description?: string,
+  date: number | string,
 
   saveTodo: Function,
   toggleTodo: Function,
@@ -33,6 +32,7 @@ type Props = {
 }
 
 type State = { edit: bool }
+
 
 class Todo extends Component<Props, State> {
 
@@ -84,17 +84,17 @@ class Todo extends Component<Props, State> {
 
   render() {
     const { edit } = this.state;
-    const { title, description, date,
-      priority, filter, completed } = this.props
+    const { title, description, date, priority, completed } = this.props
+
+      const currentDate = new Date().getTime();
+      const dateEnd = new Date(date).getTime()
 
     const className = cx(styles.title, {
-     overdue: date && date < new Date().getTime(),
+     overdue: dateEnd < currentDate,
      completed,
    });
 
-    if (filter !== ALL && filter !== priority) return null;
-
-    else return (
+    return (
       <div className={styles.wrapper}>
         <div className={styles.complete}>
           <Checkbox

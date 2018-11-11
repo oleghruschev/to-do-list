@@ -1,9 +1,18 @@
+// @flow
 import React from 'react';
 
-const Button = ({ title, onClick }) => (
-  <button onClick={onClick}>
-    {title}
+import styles from './styles.scss';
+
+type Props = {
+  title: string,
+
+  onClick: Function
+}
+
+const Button = (props: Props) => (
+  <button className={styles.button} onClick={props.onClick}>
+    {props.title}
   </button>
-)
+);
 
 export default Button;

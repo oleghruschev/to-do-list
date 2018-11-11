@@ -17,11 +17,21 @@ h2 {
 }
 
 .createTodo {
+  padding: 16px;
   box-shadow: 0 1px 4px #000;
   border-radius: 2px;
 }
 
 .filter {
-  margin: 20px 0;
+  margin-top: 20px;
   text-align: left;
+}
+
+.select {
+  display: inline-block;
+  width: 100px;
+}
+
+.noTodo {
+  margin: 40px;
 }

@@ -13,20 +13,20 @@ import styles from './styles.scss';
 type Props = {
   id? : number,
   edit? : bool,
-  date? : number,
+  date: number | string,
   title? : string,
   priority? : number,
   description? : string,
 
   addTodo: Function,
-  exitFromTodo: Function
+  exitFromTodo?: Function
 }
 
 type State = {
   error: bool,
   title: string,
   priority: number,
-  description: title,
+  description: string,
   date: number | string,
 }
 
@@ -44,27 +44,25 @@ class CreateTodo extends Component<Props, State> {
     }
   }
 
-  handleChangeTitle = (e) => {
+  handleChangeTitle = (e: SyntheticInputEvent<>) => {
     this.setState({ title: e.target.value })
   }
 
-  handleChangeDescription = (e) => {
+  handleChangeDescription = (e: SyntheticInputEvent<>) => {
     this.setState({ description: e.target.value })
   }
 
-  handleChangePriority = (e) => {
+  handleChangePriority = (e: SyntheticInputEvent<>) => {
     this.setState({ priority: +e.target.value })
   }
 
-  handleChangeDate = (e) => {
+  handleChangeDate = (e: SyntheticInputEvent<>) => {
     this.setState({ date: e.target.value })
   }
 
   handleCreateTodo = () => {
     const { addTodo } = this.props;
-    const { title, description, priority, date } = this.state;
-
-    const dateEnd = new Date(date).getTime();
+    const { title, description, priority, date } = this.state
 
     if (title) {
       this.setState({
@@ -75,7 +73,7 @@ class CreateTodo extends Component<Props, State> {
         priority: USUAL,
       });
 
-      addTodo(title, description, priority, dateEnd);
+      addTodo(title, description, priority, date);
     }
 
     else {
@@ -128,30 +126,22 @@ class CreateTodo extends Component<Props, State> {
               placeholder='Что нужно сделать'
               onChange={this.handleChangeTitle}
             />
-            <div className={styles.description}>
-              <Textarea
-                value={description}
-                placeholder='Описание'
-                onChange={this.handleChangeDescription}
-              />
-            </div>
+            <Textarea
+              value={description}
+              placeholder='Описание'
+              onChange={this.handleChangeDescription}
+            />
           </div>
           <div className={styles.right}>
+            <Input
+              type='datetime-local'
+              value={date}
+              onChange={this.handleChangeDate}
+            />
             <Select
               options={options}
               onChange={this.handleChangePriority}
             />
-            {
-              !edit && (
-                <div className={styles.date}>
-                  <Input
-                    type='datetime-local'
-                    value={date}
-                    onChange={this.handleChangeDate}
-                  />
-                </div>
-              )
-            }
           </div>
         </div>
         <div className={styles.controls}>

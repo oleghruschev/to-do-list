@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { ALL, USUAL, IMPORTANT, VERY_SIGNIFICANT } from 'constants/priority';
 
@@ -40,7 +40,7 @@ class TodoList extends Component<Props, State> {
     addTodo(title, description, priority, date)
   }
 
-  handleChangeFilter = (e) => {
+  handleChangeFilter = (e: SyntheticInputEvent<>) => {
     this.setState({ filter: + e.target.value });
   }
 
@@ -48,12 +48,18 @@ class TodoList extends Component<Props, State> {
     const { filter } = this.state;
     const { todoList } = this.props;
 
-    const priority = [
+    const options = [
       { value: ALL, title: 'Все'},
       { value: USUAL, title: 'Обычные'},
       { value: IMPORTANT, title: 'Важные'},
       { value: VERY_SIGNIFICANT, title: 'Очень важные'},
     ]
+
+    const filterTodoList = filter === ALL
+      ? todoList
+      : todoList.filter(todo => (
+          todo.priority === filter
+        ));
 
     return (
       <div className={styles.content}>
@@ -61,18 +67,27 @@ class TodoList extends Component<Props, State> {
         <div className={styles.createTodo}>
           <CreateTodo addTodo={this.handleAddTodo} />
         </div>
-        <div className={styles.filter}>
-          <span>Фильтр по задачам: </span>
-          <Select options={priority} onChange={this.handleChangeFilter} />
-        </div>
         {
-          todoList.map((todo) => (
-            <Todo
-              {...todo}
-              key={todo.id}
-              filter={filter}
-            />
-          ))
+          todoList.length > 0 && (
+            <Fragment>
+              <div className={styles.filter}>
+                <span>Фильтр по задачам: </span>
+                <div className={styles.select}>
+                  <Select options={options} onChange={this.handleChangeFilter} />
+                </div>
+              </div>
+              {
+                filterTodoList.length
+                  ? filterTodoList.map((todo) => (
+                      <Todo
+                        {...todo}
+                        key={todo.id}
+                      />
+                    ))
+                  : <div className={styles.noTodo}>Задачи не найдены</div>
+              }
+            </Fragment>
+          )
         }
       </div>
     )

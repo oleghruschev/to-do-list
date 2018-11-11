@@ -1,3 +1,40 @@
+@import 'mixins';
+
 .wrapper {
-  background-color: lightGrey;
+  padding: 10px;
+}
+
+.mainBlock {
+  @include flexBox();
+}
+
+.left {
+  width: 60%;
+}
+
+.right {
+  width: 40%;
+  text-align: left;
+}
+
+.description {
+  margin: 10px 0;
+}
+
+.date {
+  margin: 20px 0 0;
+}
+
+.controls {
+  margin:10px 30px;
+  position: relative;
+  text-align: right;
+
+  button { margin-left: 10px; }
+}
+
+.error {
+  position: absolute;
+  left: 0;
+  color: red;
 }

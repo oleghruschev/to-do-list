@@ -23,17 +23,12 @@ type todo = {
 
 type Props = {
   todoList: Array<todo>,
-  addTodo: (
-    title: number,
-    description: string,
-    priority: number,
-    date: string
-  ) => void
+
+  addTodo: Function
 };
 
-type State = {
-  filter: number
-}
+type State = { filter: number }
+
 
 class TodoList extends Component<Props, State> {
 
@@ -62,13 +57,19 @@ class TodoList extends Component<Props, State> {
 
     return (
       <div className={styles.content}>
-        <h2>Создание задачи</h2>
-        <CreateTodo addTodo={this.handleAddTodo} />
-        <Select options={priority} onChange={this.handleChangeFilter} />
+        <h2>Список дел</h2>
+        <div className={styles.createTodo}>
+          <CreateTodo addTodo={this.handleAddTodo} />
+        </div>
+        <div className={styles.filter}>
+          <span>Фильтр по задачам: </span>
+          <Select options={priority} onChange={this.handleChangeFilter} />
+        </div>
         {
           todoList.map((todo) => (
             <Todo
               {...todo}
+              key={todo.id}
               filter={filter}
             />
           ))

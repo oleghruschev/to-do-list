@@ -2,15 +2,82 @@
 
 .wrapper {
   @include flexBox();
-  width: 700px;
-  padding-right: 14px;
+  width: 540px;
   margin: 0 auto;
+  text-align: left;
+}
+
+.complete {
+  width: 40px;
 }
 
 .todo {
   margin: 20px auto;
-  padding: 4px;
+  padding: 4px 20px;
+  width: 520px;
+  box-shadow: 0 1px 4px #000;
+  border-radius: 2px;
+}
+
+.edit {
+  margin: 0 auto;
   width: 600px;
   box-shadow: 0 1px 4px #000;
   border-radius: 2px;
+}
+
+.header {
+  @include flexBox(space-between);
+  margin-bottom: 10px;
+}
+
+.title {
+  width: 86%;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.priority {
+  width: 14px;
+  height: 14px;
+  border: 1px solid grey;
+  border-radius: 50%;
+}
+
+.green { background: green; }
+
+.yellow { background: yellow; }
+
+.red { background: red; }
+
+.overdue { color: red; }
+
+.completed {
+  color: grey !important;
+  text-decoration: line-through;
+}
+
+.description { margin-bottom: 4px; }
+
+.date {
+  margin: 10px 0 4px;
+  color: blue;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.controls {
+  text-align: right;
+  font-size: 14px;
+
+  span {
+    margin-left: 10px;
+    padding: 4px;
+    color: lightgrey;
+    cursor: pointer;
+
+    &:hover {
+      color: grey;
+    }
+  }
 }

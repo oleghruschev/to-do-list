@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// @flow
 import React, { Component, Fragment } from 'react';
 
 import { USUAL, IMPORTANT, VERY_SIGNIFICANT } from 'constants/priority';
@@ -10,24 +10,33 @@ import Textarea from 'components/textarea';
 
 import styles from './styles.scss';
 
-class CreateTodo extends Component {
+type Props = {
+  id? : number,
+  edit? : bool,
+  date? : number,
+  title? : string,
+  priority? : number,
+  description? : string,
 
-  static propTypes = {
-    id: PropTypes.any,
-    date: PropTypes.any,
-    edit: PropTypes.bool,
-    title: PropTypes.any,
-    priority: PropTypes.any,
-    description: PropTypes.any,
+  addTodo: Function,
+  exitFromTodo: Function
+}
 
-    exitFromTodo: PropTypes.any,
-    addTodo: PropTypes.func.isRequired,
-  }
+type State = {
+  error: bool,
+  title: string,
+  priority: number,
+  description: title,
+  date: number | string,
+}
+
+class CreateTodo extends Component<Props, State> {
 
   constructor({ date, title, priority, description }) {
     super();
 
     this.state = {
+      error: false,
       date: date ? date : '',
       title: title ? title : '',
       priority: priority ? priority : USUAL,
@@ -35,7 +44,7 @@ class CreateTodo extends Component {
     }
   }
 
-  handleChange = (e) => {
+  handleChangeTitle = (e) => {
     this.setState({ title: e.target.value })
   }
 
@@ -57,7 +66,21 @@ class CreateTodo extends Component {
 
     const dateEnd = new Date(date).getTime();
 
-    addTodo(title, description, priority, dateEnd);
+    if (title) {
+      this.setState({
+        date: '',
+        title: '',
+        error: false,
+        description: '',
+        priority: USUAL,
+      });
+
+      addTodo(title, description, priority, dateEnd);
+    }
+
+    else {
+      this.setState({ error: true });
+    }
   }
 
   handleSaveTodo = () => {
@@ -67,26 +90,28 @@ class CreateTodo extends Component {
     addTodo(id, title, description, priority, date)
   }
 
+  handleClearError = () => {
+    this.setState({ error: false })
+  }
+
   renderControls() {
     const { edit, addTodo, exitFromTodo } = this.props;
 
     if (edit) return (
-      <div>
+      <Fragment>
         <Button title='Сохранить' onClick={this.handleSaveTodo} />
         <Button title='Выход' onClick={exitFromTodo} />
-      </div>
+      </Fragment>
     );
 
     else return (
-      <div>
-        <Button title='Создать задачу' onClick={this.handleCreateTodo} />
-      </div>
+      <Button title='Создать задачу' onClick={this.handleCreateTodo} />
     )
   }
 
   render() {
     const { edit } = this.props;
-    const { title, description, date, priority } = this.state;
+    const { error, title, description, date, priority } = this.state;
 
     const options = [
       { value: USUAL, title: 'Обычная', selected: priority === USUAL},
@@ -95,25 +120,50 @@ class CreateTodo extends Component {
     ]
 
     return (
-      <div className={styles.wrapper}>
-        <div>
-          <span>Название</span>
-          <Input value={title} onChange={this.handleChange} />
-        </div>
-        <div>
-          <span>Описание</span>
-          <Textarea value={description} onChange={this.handleChangeDescription}/>
-        </div>
-        {
-          !edit && (
-            <div>
-              <p>Дата</p>
-              <Input type='datetime-local' value={date} onChange={this.handleChangeDate}/>
+      <div className={styles.wrapper} onMouseLeave={this.handleClearError}>
+        <div className={styles.mainBlock}>
+          <div className={styles.left}>
+            <Input
+              value={title}
+              placeholder='Что нужно сделать'
+              onChange={this.handleChangeTitle}
+            />
+            <div className={styles.description}>
+              <Textarea
+                value={description}
+                placeholder='Описание'
+                onChange={this.handleChangeDescription}
+              />
+            </div>
           </div>
-          )
-        }
-        <Select options={options} onChange={this.handleChangePriority} />
-        {this.renderControls()}
+          <div className={styles.right}>
+            <Select
+              options={options}
+              onChange={this.handleChangePriority}
+            />
+            {
+              !edit && (
+                <div className={styles.date}>
+                  <Input
+                    type='datetime-local'
+                    value={date}
+                    onChange={this.handleChangeDate}
+                  />
+                </div>
+              )
+            }
+          </div>
+        </div>
+        <div className={styles.controls}>
+          {
+            error && (
+              <span className={styles.error}>
+                Вы не ввели название задачи
+              </span>
+            )
+          }
+          {this.renderControls()}
+        </div>
       </div>
     )
   }

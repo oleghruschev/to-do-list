@@ -1,33 +1,40 @@
-import PropTypes from 'prop-types';
+// @flow
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import classNames from'classnames/bind';
+import React, { Component, Fragment } from 'react';
 
+import helpers from 'helpers';
 import { ALL, USUAL, IMPORTANT, VERY_SIGNIFICANT } from 'constants/priority';
 
 import { toggleTodo, deleteTodo, saveTodo } from 'actions/todo-list';
 
 import Input from 'components/input';
 import Textarea from 'components/textarea';
+import Checkbox from 'components/checkbox';
 
 import CreateTodo from '../create-todo';
 
 import styles from './styles.scss';
 
+const cx = classNames.bind(styles);
 
-class Todo extends Component {
+type Props = {
+  id : number,
+  date? : number,
+  filter: number,
+  complete: bool,
+  title? : string,
+  priority : number,
+  description? : string,
 
-  static propTypes = {
-    description: PropTypes.string,
-    id: PropTypes.number.isRequired,
-    date: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    filter: PropTypes.number.isRequired,
-    priority: PropTypes.number.isRequired,
+  saveTodo: Function,
+  toggleTodo: Function,
+  deleteTodo: Function
+}
 
-    saveTodo: PropTypes.func.isRequired,
-    toggleTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-  }
+type State = { edit: bool }
+
+class Todo extends Component<Props, State> {
 
   state = { edit: false }
 
@@ -62,52 +69,70 @@ class Todo extends Component {
   }
 
   renderPriority() {
-    const { priority } = this.props;
+    const { priority } = this.props
 
-    if (priority === USUAL) return 'Обычная'
-    if (priority === IMPORTANT) return 'Важная'
-    if (priority === VERY_SIGNIFICANT) return 'Очень важная'
+    const className = cx(styles.priority, {
+     green: priority === USUAL,
+     yellow: priority === IMPORTANT,
+     red: priority === VERY_SIGNIFICANT,
+   });
+
+    return (
+      <div className={className}/>
+    )
   }
 
   render() {
     const { edit } = this.state;
-    const { title, description, date, priority, filter } = this.props;
-    
-    const dateEnd = new Date(date);
-    const day = dateEnd.getDate();
-    const hours = dateEnd.getHours();
-    const month = dateEnd.getMonth() + 1;
-    const minutes = dateEnd.getMinutes();
-    const year = dateEnd.getFullYear();
+    const { title, description, date,
+      priority, filter, completed } = this.props
 
-    const formatMonth = month < 10 ? `0${month}` : month;
-    const formatMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const className = cx(styles.title, {
+     overdue: date && date < new Date().getTime(),
+     completed,
+   });
 
     if (filter !== ALL && filter !== priority) return null;
 
-    else if (edit) return (
-      <CreateTodo
-        edit
-        {...this.props}
-        addTodo={this.handleSaveTodo}
-        exitFromTodo={this.handleExitFromTodo}
-      />
-    )
-
     else return (
       <div className={styles.wrapper}>
-        <Input type='checkbox' onChange={this.handleChangeComplite} />
+        <div className={styles.complete}>
+          <Checkbox
+            checked={completed}
+            onChange={this.handleChangeComplite}
+          />
+        </div>
         <div className={styles.todo}>
-          <h2>{title}</h2>
-          <p>{description}</p>
-          <p>Важность задачи: {this.renderPriority()}</p>
           {
-            Boolean(date) && (
-              <p>{day}.{formatMonth}.{year} {hours}:{formatMinutes}</p>
-            )
+            edit
+             ? (
+               <CreateTodo
+                 edit
+                 {...this.props}
+                 addTodo={this.handleSaveTodo}
+                 exitFromTodo={this.handleExitFromTodo}
+               />
+              ) : (
+                <Fragment>
+                  <div className={styles.header}>
+                    <p className={className}>{title}</p>
+                    {this.renderPriority()}
+                  </div>
+                  <p className={styles.description}>{description}</p>
+                  {
+                    Boolean(date) && (
+                      <p className={styles.date}>
+                        {helpers.formateDate(date)}
+                      </p>
+                    )
+                  }
+                  <div className={styles.controls}>
+                    <span onClick={this.handleEditTodo}>редактировать</span>
+                    <span onClick={this.handleDeleteTodo}>удалить</span>
+                  </div>
+                </Fragment>
+              )
           }
-          <p onClick={this.handleEditTodo}>ред.</p>
-          <p onClick={this.handleDeleteTodo}>удалить</p>
         </div>
       </div>
     )

@@ -18,6 +18,7 @@ module.exports = {
   resolve: {
     alias: {
       scenes: path.resolve(rootFolder, 'src/scenes'),
+      helpers: path.resolve(rootFolder, 'src/helpers'),
       vars: path.resolve(rootFolder, 'src/scss/_vars'),
       actions: path.resolve(rootFolder, 'src/actions'),
       reducers: path.resolve(rootFolder, 'src/reducers'),

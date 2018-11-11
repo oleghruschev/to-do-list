@@ -33,7 +33,6 @@
     "img-loader": "^3.0.0",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.3",
-    "prop-types": "^15.6.2",
     "react-hot-loader": "^4.3.11",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
@@ -42,6 +41,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "flow-bin": "^0.86.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

@@ -5,11 +5,11 @@ import styles from './styles.scss';
 
 type Options = {
   value: number,
-  title: string,
-  selected?: bool,
+  title: string
 }
 
 type Props = {
+  value: number,
   options: Array<Options>,
 
   onChange: Function
@@ -18,21 +18,21 @@ type Props = {
 
 const Select = (props: Props) => (
   <select
+    value={props.value}
     className={styles.select}
     onChange={props.onChange}
   >
     {
-      props.options.map(({ value, title, selected }, index) => (
+      props.options.map(({ value, title }, index) => (
         <option
           key={index}
           value={value}
-          selected={selected}
         >
           {title}
         </option>
       ))
     }
   </select>
-)
+);
 
 export default Select;

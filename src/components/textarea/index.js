@@ -18,6 +18,6 @@ const Textarea = (props: Props) => (
     className={styles.textarea}
     placeholder={props.placeholder}
   />
-)
+);
 
 export default Textarea;

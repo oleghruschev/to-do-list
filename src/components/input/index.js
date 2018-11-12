@@ -19,6 +19,6 @@ const Input = (props: Props) => (
     onChange={props.onChange}
     placeholder={props.placeholder}
   />
-)
+);
 
 export default Input;

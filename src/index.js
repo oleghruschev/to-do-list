@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './configureStore';
 
@@ -15,6 +15,6 @@ ReactDOM.render(
     </PersistGate>
   </Provider>,
   document.getElementById('app')
-)
+);
 
 module.hot.accept();

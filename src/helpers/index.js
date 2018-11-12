@@ -12,6 +12,6 @@ export default {
 
     return  (
       `${day}.${formatMonth}.${year} ${hours}:${formatMinutes}`
-    )
+    );
   }
-}
+};

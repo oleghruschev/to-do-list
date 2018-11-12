@@ -18,23 +18,23 @@ const todoList = (state = initialState, action) => {
       );
 
     case actionTypes.EDIT_TODO:
-    return state.map(todo =>
-      (todo.id === action.id)
-        ? {
+      return state.map(todo =>
+        (todo.id === action.id)
+          ? {
             ...todo,
             date: action.date,
             title: action.title,
             priority: action.priority,
             description: action.description,
           }
-        : todo
-    );
+          : todo
+      );
 
     case actionTypes.DELETE_TODO:
-        return state.filter(todo => todo.id !== action.id);
+      return state.filter(todo => todo.id !== action.id);
 
     default: return state;
   }
-}
+};
 
 export default todoList;

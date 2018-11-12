@@ -17,6 +17,6 @@ const Checkbox = (props: Props) => (
     onChange={props.onChange}
     className={styles.checkbox}
   />
-)
+);
 
 export default Checkbox;

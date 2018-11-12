@@ -50,8 +50,8 @@ module.exports = {
         use: ['babel-loader', 'eslint-loader']
       },
       {
-      	test: /\.scss$/,
-      	use: [
+        test: /\.scss$/,
+        use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
@@ -59,26 +59,26 @@ module.exports = {
               importLoaders: 1,
               modules: true,
               localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
+            },
           },
           {
             loader: 'sass-loader',
             options: { sourceMap: true },
-          }
-      	]
+          },
+        ],
       },
       {
         test: /\.(png|gif|jpe?g)$/,
-	      loaders: [
+        loaders: [
           {
             loader: 'file-loader',
             options: {
               name: 'images/[name].[ext]',
             },
-          }
-        ]
+          },
+        ],
       },
-    ]
+    ],
   },
 
   plugins: [
@@ -91,4 +91,4 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-}
+};

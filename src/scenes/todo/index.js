@@ -39,27 +39,25 @@ class Todo extends Component<Props, State> {
   handleChangeComplite = () => {
     const { id, toggleTodo } = this.props;
 
-    toggleTodo(id)
+    toggleTodo(id);
   }
 
   handleEditTodo = () => {
-    const { title, description } = this.props;
-
     this.setState({ edit: true });
   }
 
   handleDeleteTodo = () => {
     const { id, deleteTodo } = this.props;
 
-    deleteTodo(id)
+    deleteTodo(id);
   }
 
   handleSaveTodo = (id, title, description, priority, date) => {
     const { saveTodo } = this.props;
 
-    this.setState({ edit: false })
+    this.setState({ edit: false });
 
-    saveTodo(id, title, description, priority, date)
+    saveTodo(id, title, description, priority, date);
   }
 
   handleExitFromTodo = () => {
@@ -68,17 +66,17 @@ class Todo extends Component<Props, State> {
 
   render() {
     const { edit } = this.state;
-    const { title, description, date, priority, completed } = this.props
+    const { title, description, date, priority, completed } = this.props;
 
     const currentDate = new Date().getTime();
-    const dateEnd = new Date(date).getTime()
+    const dateEnd = new Date(date).getTime();
 
     const className = cx(styles.title, {
       overdue: dateEnd < currentDate,
       completed,
     });
 
-   const classNamePriority = cx(styles.priority, {
+    const classNamePriority = cx(styles.priority, {
       green: priority === USUAL,
       yellow: priority === IMPORTANT,
       red: priority === VERY_SIGNIFICANT,
@@ -95,18 +93,25 @@ class Todo extends Component<Props, State> {
         <div className={styles.todo}>
           {
             edit
-             ? (
-               <CreateTodo
-                 edit
-                 {...this.props}
-                 addTodo={this.handleSaveTodo}
-                 exitFromTodo={this.handleExitFromTodo}
-               />
+              ? (
+                <CreateTodo
+                  edit
+                  {...this.props}
+                  addTodo={this.handleSaveTodo}
+                  exitFromTodo={this.handleExitFromTodo}
+                />
               ) : (
                 <Fragment>
                   <div className={styles.header}>
                     <p className={className}>{title}</p>
                     <div className={classNamePriority}/>
+                  </div>
+                  <div className={styles.dateCompleted}>
+                    {
+                      completed && (
+                        `Выполнена: ${helpers.formateDate(new Date())}`
+                      )
+                    }
                   </div>
                   <p className={styles.description}>{description}</p>
                   {
@@ -125,7 +130,7 @@ class Todo extends Component<Props, State> {
           }
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -133,9 +138,9 @@ const mapDispatchToProps = {
   saveTodo,
   toggleTodo,
   deleteTodo,
-}
+};
 
 export default connect(
   () => ({}),
   mapDispatchToProps,
-)(Todo)
+)(Todo);

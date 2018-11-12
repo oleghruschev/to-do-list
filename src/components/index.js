@@ -9,5 +9,5 @@ export {
   Select,
   Button,
   Checkbox,
-  Textarea
-}
+  Textarea,
+};

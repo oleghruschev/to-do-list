@@ -38,28 +38,28 @@ class CreateTodo extends Component<Props, State> {
       title: props.title ? props.title : '',
       priority: props.priority ? props.priority : USUAL,
       description: props.description ? props.description : '',
-    }
+    };
   }
 
   handleChangeTitle = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({ title: e.target.value })
+    this.setState({ title: e.target.value });
   }
 
   handleChangeDescription = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({ description: e.target.value })
+    this.setState({ description: e.target.value });
   }
 
   handleChangePriority = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({ priority: +e.target.value })
+    this.setState({ priority: +e.target.value });
   }
 
   handleChangeDate = (e: SyntheticInputEvent<HTMLInputElement>) => {
-    this.setState({ date: e.target.value })
+    this.setState({ date: e.target.value });
   }
 
   handleCreateTodo = () => {
     const { addTodo } = this.props;
-    const { title, description, priority, date } = this.state
+    const { title, description, priority, date } = this.state;
 
     if (title) {
       this.setState({
@@ -80,17 +80,17 @@ class CreateTodo extends Component<Props, State> {
 
   handleSaveTodo = () => {
     const { id, addTodo } = this.props;
-    const { title, description, priority, date, } = this.state;
+    const { title, description, priority, date } = this.state;
 
-    addTodo(id, title, description, priority, date)
+    addTodo(id, title, description, priority, date);
   }
 
   handleClearError = () => {
-    this.setState({ error: false })
+    this.setState({ error: false });
   }
 
   renderControls() {
-    const { edit, addTodo, exitFromTodo } = this.props;
+    const { edit, exitFromTodo } = this.props;
 
     if (edit) return (
       <Fragment>
@@ -101,18 +101,17 @@ class CreateTodo extends Component<Props, State> {
 
     else return (
       <Button title='Создать задачу' onClick={this.handleCreateTodo} />
-    )
+    );
   }
 
   render() {
-    const { edit } = this.props;
     const { error, title, description, date, priority } = this.state;
 
     const options = [
-      { value: USUAL, title: 'Обычная', selected: priority === USUAL},
-      { value: IMPORTANT, title: 'Важная', selected: priority === IMPORTANT},
-      { value: VERY_SIGNIFICANT, title: 'Очень важная', selected: priority === VERY_SIGNIFICANT},
-    ]
+      { value: USUAL, title: 'Обычная'},
+      { value: IMPORTANT, title: 'Важная'},
+      { value: VERY_SIGNIFICANT, title: 'Очень важная'},
+    ];
 
     return (
       <div className={styles.wrapper} onMouseLeave={this.handleClearError}>
@@ -136,6 +135,7 @@ class CreateTodo extends Component<Props, State> {
               onChange={this.handleChangeDate}
             />
             <Select
+              value={priority}
               options={options}
               onChange={this.handleChangePriority}
             />
@@ -152,8 +152,8 @@ class CreateTodo extends Component<Props, State> {
           {this.renderControls()}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default CreateTodo
+export default CreateTodo;

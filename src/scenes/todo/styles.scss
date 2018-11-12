@@ -26,13 +26,13 @@
 
 .header {
   @include flexBox(space-between);
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 .title {
-  width: 86%;
-  font-weight: 700;
+  width: 80%;
   font-size: 20px;
+  font-weight: 700;
 }
 
 .priority {
@@ -55,13 +55,19 @@
   text-decoration: line-through;
 }
 
-.description { margin-bottom: 4px; }
+.description { margin: 4px 0; }
 
 .date {
   margin: 10px 0 4px;
   color: blue;
   font-size: 13px;
   font-style: italic;
+}
+
+.dateCompleted {
+  height: 14px;
+  font-size: 12px;
+  color: grey;
 }
 
 .controls {

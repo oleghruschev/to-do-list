@@ -37,7 +37,7 @@ class TodoList extends Component<Props, State> {
   handleAddTodo = (title, description, priority, date) => {
     const { addTodo } = this.props;
 
-    addTodo(title, description, priority, date)
+    addTodo(title, description, priority, date);
   }
 
   handleChangeFilter = (e: SyntheticInputEvent<>) => {
@@ -53,13 +53,13 @@ class TodoList extends Component<Props, State> {
       { value: USUAL, title: 'Обычные'},
       { value: IMPORTANT, title: 'Важные'},
       { value: VERY_SIGNIFICANT, title: 'Очень важные'},
-    ]
+    ];
 
     const filterTodoList = filter === ALL
       ? todoList
       : todoList.filter(todo => (
-          todo.priority === filter
-        ));
+        todo.priority === filter
+      ));
 
     return (
       <div className={styles.content}>
@@ -69,38 +69,42 @@ class TodoList extends Component<Props, State> {
         </div>
         {
           todoList.length > 0 && (
-            <Fragment>
+            <Fragment> 
               <div className={styles.filter}>
                 <span>Фильтр по задачам: </span>
                 <div className={styles.select}>
-                  <Select options={options} onChange={this.handleChangeFilter} />
+                  <Select
+                    value={filter}
+                    options={options}
+                    onChange={this.handleChangeFilter}
+                  />
                 </div>
               </div>
               {
                 filterTodoList.length
                   ? filterTodoList.map((todo) => (
-                      <Todo
-                        {...todo}
-                        key={todo.id}
-                      />
-                    ))
+                    <Todo
+                      {...todo}
+                      key={todo.id}
+                    />
+                  ))
                   : <div className={styles.noTodo}>Задачи не найдены</div>
               }
             </Fragment>
           )
         }
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   todoList: state.todoList,
-})
+});
 
 const mapDispatchToProps = {
   addTodo,
-}
+};
 
 export default connect(
   mapStateToProps,

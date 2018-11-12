@@ -6,7 +6,7 @@ import { ALL, USUAL, IMPORTANT, VERY_SIGNIFICANT } from 'constants/priority';
 
 import { addTodo } from 'actions/todo-list';
 
-import Select from 'components/select';
+import { Select } from 'components';
 
 import Todo from '../todo';
 import CreateTodo from '../create-todo';

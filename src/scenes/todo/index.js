@@ -8,9 +8,7 @@ import { ALL, USUAL, IMPORTANT, VERY_SIGNIFICANT } from 'constants/priority';
 
 import { toggleTodo, deleteTodo, saveTodo } from 'actions/todo-list';
 
-import Input from 'components/input';
-import Textarea from 'components/textarea';
-import Checkbox from 'components/checkbox';
+import { Checkbox } from 'components';
 
 import CreateTodo from '../create-todo';
 
@@ -68,31 +66,23 @@ class Todo extends Component<Props, State> {
     this.setState({ edit: false });
   }
 
-  renderPriority() {
-    const { priority } = this.props
-
-    const className = cx(styles.priority, {
-     green: priority === USUAL,
-     yellow: priority === IMPORTANT,
-     red: priority === VERY_SIGNIFICANT,
-   });
-
-    return (
-      <div className={className}/>
-    )
-  }
-
   render() {
     const { edit } = this.state;
     const { title, description, date, priority, completed } = this.props
 
-      const currentDate = new Date().getTime();
-      const dateEnd = new Date(date).getTime()
+    const currentDate = new Date().getTime();
+    const dateEnd = new Date(date).getTime()
 
     const className = cx(styles.title, {
-     overdue: dateEnd < currentDate,
-     completed,
-   });
+      overdue: dateEnd < currentDate,
+      completed,
+    });
+
+   const classNamePriority = cx(styles.priority, {
+      green: priority === USUAL,
+      yellow: priority === IMPORTANT,
+      red: priority === VERY_SIGNIFICANT,
+    });
 
     return (
       <div className={styles.wrapper}>
@@ -116,7 +106,7 @@ class Todo extends Component<Props, State> {
                 <Fragment>
                   <div className={styles.header}>
                     <p className={className}>{title}</p>
-                    {this.renderPriority()}
+                    <div className={classNamePriority}/>
                   </div>
                   <p className={styles.description}>{description}</p>
                   {

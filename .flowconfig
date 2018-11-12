@@ -1,5 +1,4 @@
 [ignore]
-.*/node_modules/.*
 
 [include]
 
@@ -8,6 +7,7 @@
 [lints]
 
 [options]
+module.name_mapper='\(react-redux\)' -> '<PROJECT_ROOT>/flow/GeneralStub.js.flow'
 module.name_mapper='scenes' -> '<PROJECT_ROOT>/src/scenes'
 module.name_mapper='actions' -> '<PROJECT_ROOT>/src/actions'
 module.name_mapper='helpers' -> '<PROJECT_ROOT>/src/helpers'
@@ -21,5 +21,6 @@ module.file_ext=.css
 module.file_ext=.scss
 module.name_mapper.extension='css' -> 'empty/object'
 module.name_mapper.extension='scss' -> 'empty/object'
+
 
 [strict]

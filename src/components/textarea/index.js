@@ -1,13 +1,22 @@
+// @flow
 import React from 'react';
 
 import styles from './styles';
 
-const Textarea = ({ value, onChange, placeholder }) => (
+type Props = {
+  value: string,
+  placeholder: string,
+
+  onChange: Function,
+}
+
+
+const Textarea = (props: Props) => (
   <textarea
-    value={value}
-    onChange={onChange}
-    placeholder={placeholder}
+    value={props.value}
+    onChange={props.onChange}
     className={styles.textarea}
+    placeholder={props.placeholder}
   />
 )
 

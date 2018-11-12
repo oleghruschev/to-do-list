@@ -9,6 +9,7 @@ type Props = {
   onClick: Function
 }
 
+
 const Button = (props: Props) => (
   <button className={styles.button} onClick={props.onClick}>
     {props.title}

@@ -1,8 +1,6 @@
 @import 'mixins';
 
-.mainBlock {
-  @include flexBox(space-between);
-}
+.mainBlock { @include flexBox(space-between); }
 
 .left {
   width: 52%;

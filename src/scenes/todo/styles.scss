@@ -7,9 +7,7 @@
   text-align: left;
 }
 
-.complete {
-  width: 40px;
-}
+.complete { width: 40px; }
 
 .todo {
   margin: 20px auto;
@@ -76,8 +74,6 @@
     color: lightgrey;
     cursor: pointer;
 
-    &:hover {
-      color: grey;
-    }
+    &:hover { color: grey; }
   }
 }

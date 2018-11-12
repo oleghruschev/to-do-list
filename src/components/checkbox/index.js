@@ -9,6 +9,7 @@ type Props = {
   onChange: Function,
 }
 
+
 const Checkbox = (props: Props) => (
   <input
     type='checkbox'

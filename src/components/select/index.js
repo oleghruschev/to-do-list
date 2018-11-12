@@ -1,14 +1,28 @@
+// @flow
 import React from 'react';
 
 import styles from './styles.scss';
 
-const Select = ({ options, onChange }) => (
+type Options = {
+  value: number,
+  title: string,
+  selected?: bool,
+}
+
+type Props = {
+  options: Array<Options>,
+
+  onChange: Function
+}
+
+
+const Select = (props: Props) => (
   <select
     className={styles.select}
-    onChange={onChange}
+    onChange={props.onChange}
   >
     {
-      options.map(({ value, title, selected }, index) => (
+      props.options.map(({ value, title, selected }, index) => (
         <option
           key={index}
           value={value}

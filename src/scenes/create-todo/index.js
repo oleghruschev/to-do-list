@@ -3,17 +3,14 @@ import React, { Component, Fragment } from 'react';
 
 import { USUAL, IMPORTANT, VERY_SIGNIFICANT } from 'constants/priority';
 
-import Input from 'components/input';
-import Button from 'components/button';
-import Select from 'components/select';
-import Textarea from 'components/textarea';
+import { Input, Button, Select, Textarea } from 'components';
 
 import styles from './styles.scss';
 
 type Props = {
   id? : number,
   edit? : bool,
-  date: number | string,
+  date?: number | string,
   title? : string,
   priority? : number,
   description? : string,
@@ -32,31 +29,31 @@ type State = {
 
 class CreateTodo extends Component<Props, State> {
 
-  constructor({ date, title, priority, description }) {
+  constructor(props: Props) {
     super();
 
     this.state = {
       error: false,
-      date: date ? date : '',
-      title: title ? title : '',
-      priority: priority ? priority : USUAL,
-      description: description ? description : '',
+      date: props.date ? props.date : '',
+      title: props.title ? props.title : '',
+      priority: props.priority ? props.priority : USUAL,
+      description: props.description ? props.description : '',
     }
   }
 
-  handleChangeTitle = (e: SyntheticInputEvent<>) => {
+  handleChangeTitle = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ title: e.target.value })
   }
 
-  handleChangeDescription = (e: SyntheticInputEvent<>) => {
+  handleChangeDescription = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ description: e.target.value })
   }
 
-  handleChangePriority = (e: SyntheticInputEvent<>) => {
+  handleChangePriority = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ priority: +e.target.value })
   }
 
-  handleChangeDate = (e: SyntheticInputEvent<>) => {
+  handleChangeDate = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ date: e.target.value })
   }
 

@@ -1,14 +1,23 @@
+// @flow
 import React from 'react';
 
 import styles from './styles.scss';
 
-const Input = ({ type, value, onChange, placeholder }) => (
+type Props = {
+  type?: string,
+  value?: string | number,
+  placeholder?: string,
+
+  onChange?: Function
+}
+
+const Input = (props: Props) => (
   <input
-    type={type}
-    value={value}
-    onChange={onChange}
+    type={props.type}
+    value={props.value}
     className={styles.input}
-    placeholder={placeholder}
+    onChange={props.onChange}
+    placeholder={props.placeholder}
   />
 )
 

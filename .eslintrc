@@ -1,10 +1,10 @@
 {
-  parser: "babel-eslint",
+  "parser": "babel-eslint",
   "plugins": [
     "react"
   ],
   "rules": {
-    "max-len": [1, 120, 2, {ignoreComments: true}],
+    "max-len": [1, 120, 2, {"ignoreComments": true}],
     "no-debugger": 0,
     "no-console": 0,
     "new-cap": 0,
@@ -17,5 +17,5 @@
     "react/jsx-no-undef": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1
-  },
+  }
 }

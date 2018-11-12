@@ -87,7 +87,7 @@ module.exports = {
       template: path.resolve(rootFolder, './public/index.html')
     }),
     new MiniCssExtractPlugin({
-      filename: './style.css',
+      filename: 'style.css',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

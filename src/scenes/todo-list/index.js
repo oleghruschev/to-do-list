@@ -8,8 +8,8 @@ import { addTodo } from 'actions/todo-list';
 
 import { Select } from 'components';
 
-import Todo from '../todo';
-import CreateTodo from '../create-todo';
+import Todo from './todo';
+import CreateTodo from './create-todo';
 
 import styles from './styles.scss';
 

@@ -1,9 +1,9 @@
 Todo-list
 =====================
 
-git clone https://github.com/oleghruschev/to-do-list
+git clone https://github.com/oleghruschev/todo-list
 
-cd to-do-list
+cd todo-list
 
 npm i
 

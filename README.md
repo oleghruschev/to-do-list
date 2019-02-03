@@ -7,4 +7,4 @@ cd todo-list
 
 npm i
 
-npm run start
+npm start
